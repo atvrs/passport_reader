@@ -1,0 +1,33 @@
+[Unit]
+Description=Passport Reader File Service
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/passport_reader
+EnvironmentFile=/etc/passport-reader/passport-reader.env
+
+ExecStart=/usr/bin/python3 /opt/passport_reader/src/passport_service.py \
+  --commands-dir ${PASSPORT_READER_DATA_DIR}/commands \
+  --input-dir ${PASSPORT_READER_DATA_DIR}/in \
+  --output-dir ${PASSPORT_READER_DATA_DIR}/out \
+  --error-dir ${PASSPORT_READER_DATA_DIR}/error \
+  --work-dir ${PASSPORT_READER_DATA_DIR}/work \
+  --archive-dir ${PASSPORT_READER_DATA_DIR}/archive \
+  --archive-retention-days ${PASSPORT_READER_ARCHIVE_RETENTION_DAYS} \
+  --archive-max-gb ${PASSPORT_READER_ARCHIVE_MAX_GB} \
+  --out-retention-days ${PASSPORT_READER_OUT_RETENTION_DAYS} \
+  --ocr-max-side ${PASSPORT_READER_OCR_MAX_SIDE} \
+  --processing-dir ${PASSPORT_READER_DATA_DIR}/processing \
+  --log-file ${PASSPORT_READER_DATA_DIR}/logs/passport_service.log \
+  --log-total-max-mb ${PASSPORT_READER_LOG_TOTAL_MAX_MB} \
+  --log-files-count ${PASSPORT_READER_LOG_FILES_COUNT} \
+  --lock-file ${PASSPORT_READER_DATA_DIR}/passport_service.lock \
+  --status-file ${PASSPORT_READER_DATA_DIR}/status/service_status.json \
+  --heartbeat-sec ${PASSPORT_READER_HEARTBEAT_SEC}
+
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

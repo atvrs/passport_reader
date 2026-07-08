@@ -1,0 +1,32 @@
+.venv/
+__pycache__/
+*.pyc
+debug/
+result.json
+*.log
+.env
+# Local/private deployment files
+*.env
+*.local
+*.local.*
+*.private
+*.private.*
+local/
+private/
+deploy/*.local
+deploy/*.local.*
+deploy/*.private
+deploy/*.private.*
+
+# Local extracted bundles / downloaded artifacts
+*_bundle/
+*_bundle_v*/
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+*.rar
+
+# Local archive apply instructions
+APPLY_*.md
